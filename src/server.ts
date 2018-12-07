@@ -2,6 +2,8 @@ import errorHandler from "errorhandler";
 
 import app from "./app";
 
+import "./schedule";
+
 /**
  * Error Handler. Provides full stack - remove for production
  */
