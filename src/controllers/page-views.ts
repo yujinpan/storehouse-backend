@@ -61,7 +61,7 @@ export let setPageViews = (req: Request, res: Response) => {
         } else {
             const pvOnce = new PageViews({
                 date: query.date,
-                total: 0
+                total: 1
             });
             pvOnce.save(next);
         }
