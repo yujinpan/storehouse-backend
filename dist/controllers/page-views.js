@@ -59,17 +59,18 @@ exports.setPageViews = (req, res) => {
                 });
             });
         };
+        const IP = req.ips.length ? req.ips.join(",") : req.ip;
         // 如果查到该 ip 有数据，就不保存信息
         // 否则添加一条新数据
         if (pvs && pvs.length) {
-            const curr = pvs.find((pv) => pv.toObject().ip === req.ip);
+            const curr = pvs.find((pv) => pv.toObject().ip === IP);
             if (curr) {
                 return next();
             }
         }
         const pvOnce = new PageViews_1.default({
             date: query.date,
-            ip: req.ip
+            ip: IP
         });
         pvOnce.save(next);
     });
