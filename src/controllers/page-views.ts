@@ -65,7 +65,7 @@ export let setPageViews = (req: Request, res: Response) => {
     };
 
     const IP =
-      req.get("X-Real-Ip") || req.ips.length ? req.ips.join(",") : req.ip;
+      req.get("X-Real-Ip") || (req.ips.length ? req.ips.join(",") : req.ip);
 
     // 如果查到该 ip 有数据，就不保存信息
     // 否则添加一条新数据
