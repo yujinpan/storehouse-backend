@@ -14,7 +14,7 @@ results
 tmp
 
 # Build
-public/css/main.css
+# public/css/main.css
 
 # Coverage reports
 coverage
@@ -27,6 +27,7 @@ node_modules
 bower_components
 
 # Editors
+.vscode
 .idea
 *.iml
 
