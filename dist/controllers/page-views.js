@@ -31,44 +31,46 @@ exports.getPageViews = (req, res) => {
  */
 exports.setPageViews = (req, res) => {
     const query = { date: req.body.date || new Date().toLocaleDateString() };
-    PageViews_1.default.findOne(query, (err, pvs) => {
-        if (err)
+    PageViews_1.default.find(query, (err, pvs) => {
+        if (err) {
             return res.json({
                 state: false,
                 msg: err
             });
+        }
         // 更新或者添加回调
         const next = (err) => {
-            if (err)
+            if (err) {
                 return res.json({
                     state: false,
                     msg: err
                 });
-            PageViews_1.default.find({}, (err, pvs) => {
-                if (err)
+            }
+            PageViews_1.default.count({}, (err, total) => {
+                if (err) {
                     return res.json({
                         state: false,
                         msg: err
                     });
-                res.json({
+                }
+                return res.json({
                     state: true,
-                    total: reduce_1.default(pvs, (acc, curr) => {
-                        return acc + curr.toObject().total;
-                    }, 0)
+                    total: total
                 });
             });
         };
-        // 如果查到有数据就更新数据
+        // 如果查到该 ip 有数据，就不保存信息
         // 否则添加一条新数据
-        if (pvs) {
-            PageViews_1.default.updateOne(pvs, { total: pvs.toObject().total + 1 }, next);
+        if (pvs && pvs.length) {
+            const curr = pvs.find((pv) => pv.toObject().ip === req.ip);
+            if (curr) {
+                return next();
+            }
         }
-        else {
-            const pvOnce = new PageViews_1.default({
-                date: query.date,
-                total: 0
-            });
-            pvOnce.save(next);
-        }
+        const pvOnce = new PageViews_1.default({
+            date: query.date,
+            ip: req.ip
+        });
+        pvOnce.save(next);
     });
 };
