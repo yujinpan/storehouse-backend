@@ -59,7 +59,8 @@ function getList(options: RequestOptions, callback: any) {
         try {
           result = JSON.parse(rawData);
         } catch (e) {
-          return callback(e);
+          console.log(e);
+          return callback(rawData);
         }
         if (result.resultcode === "200") {
           callback(result.result);
