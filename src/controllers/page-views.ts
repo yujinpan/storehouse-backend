@@ -67,17 +67,24 @@ export let setPageViews = (req: Request, res: Response) => {
     const IP =
       req.get("X-Real-Ip") || (req.ips.length ? req.ips.join(",") : req.ip);
 
-    // 如果查到该 ip 有数据，就不保存信息
+    // 如果查到该 ip 有数据，就更新访问时间
     // 否则添加一条新数据
+    const time = new Date().toLocaleTimeString();
     if (pvs && pvs.length) {
       const curr = pvs.find((pv: any) => pv.toObject().ip === IP);
       if (curr) {
-        return next();
+        const obj = curr.toObject();
+        const times = obj.times.split(",").concat([time]);
+        Object.assign(obj, {
+          times
+        });
+        return curr.update(obj, next);
       }
     }
     const pvOnce = new PageViews({
       date: query.date,
-      ip: IP
+      ip: IP,
+      times: [time]
     });
     pvOnce.save(next);
   });
