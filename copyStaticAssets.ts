@@ -1,4 +1,4 @@
 import * as shell from "shelljs";
 
-shell.rm("-rf", "dist/public");
-shell.cp("-R", "public", "dist/public");
+// shell.rm("-rf", "dist/public");
+shell.cp("-R", "public", "dist/");
