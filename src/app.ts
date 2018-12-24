@@ -21,6 +21,7 @@ dotenv.config({ path: ".env" });
 
 // Controllers (route handlers)
 import * as pageViewsController from "./controllers/page-views";
+import * as exampleController from "./controllers/example";
 
 // API keys and Passport configuration
 // import * as passportConfig from "./config/passport";
@@ -86,5 +87,6 @@ app.use(
  */
 app.get("/pv/get", pageViewsController.getPageViews);
 app.get("/pv/set", pageViewsController.setPageViews);
+app.get("/api/example", exampleController.example);
 
 export default app;
