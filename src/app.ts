@@ -13,6 +13,7 @@ import passport from "passport";
 import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import history from "connect-history-api-fallback";
 
 const MongoStore = mongo(session);
 
@@ -77,6 +78,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// HTML5 History 模式
+app.use(history());
 
 app.use(
   express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
