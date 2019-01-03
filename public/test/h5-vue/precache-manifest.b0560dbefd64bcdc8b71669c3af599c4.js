@@ -4,31 +4,31 @@ self.__precacheManifest = [
     "url": "/test/h5-vue/robots.txt"
   },
   {
-    "revision": "46e8e584321b696719a5",
-    "url": "/test/h5-vue/js/example.1fd32b6c.js"
+    "revision": "00b3f81d5661085ab4cb",
+    "url": "/test/h5-vue/js/example.dc103e09.js"
   },
   {
-    "revision": "eb8ad5351035d675a1fd",
-    "url": "/test/h5-vue/js/example-router.242c10b5.js"
+    "revision": "ef07b55ca33148d73e04",
+    "url": "/test/h5-vue/js/example-router.fcf6842f.js"
   },
   {
     "revision": "dbae6274dc526d5a87e1",
     "url": "/test/h5-vue/js/chunk-vendors.8c799401.js"
   },
   {
-    "revision": "908bbe49073a02963c65ad14b9a1695c",
+    "revision": "abfeb8005278fd461cd74142765aaf7e",
     "url": "/test/h5-vue/example.html"
   },
   {
-    "revision": "ef201797fef8b3d64dfeb706bf16c3f4",
+    "revision": "4e45099506fee4313dd2d306fc9bbcf8",
     "url": "/test/h5-vue/example-router.html"
   },
   {
-    "revision": "46e8e584321b696719a5",
+    "revision": "00b3f81d5661085ab4cb",
     "url": "/test/h5-vue/css/example.9b53f944.css"
   },
   {
-    "revision": "eb8ad5351035d675a1fd",
+    "revision": "ef07b55ca33148d73e04",
     "url": "/test/h5-vue/css/example-router.4de9a6fb.css"
   }
 ];
