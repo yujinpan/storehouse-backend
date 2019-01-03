@@ -16,11 +16,11 @@ self.__precacheManifest = [
     "url": "/test/h5-vue/js/chunk-vendors.8c799401.js"
   },
   {
-    "revision": "abfeb8005278fd461cd74142765aaf7e",
+    "revision": "673890a19c26e1bccd9d1ca4ae825c78",
     "url": "/test/h5-vue/example.html"
   },
   {
-    "revision": "4e45099506fee4313dd2d306fc9bbcf8",
+    "revision": "a02c96da023a45e22777b087e5f105c0",
     "url": "/test/h5-vue/example-router.html"
   },
   {
