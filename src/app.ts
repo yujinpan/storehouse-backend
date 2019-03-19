@@ -88,22 +88,9 @@ app.use((req, res, next) => {
 });
 
 // HTML5 History 模式
-app.use(
-  history({
-    rewrites: [
-      {
-        from: /^\/pv\/.*$/,
-        to: function(context) {
-          return context.parsedUrl.path;
-        }
-      }
-    ]
-  })
-);
+app.use(history());
 
-app.use(
-  express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
-);
+app.use(express.static(path.join(__dirname, "public")));
 
 /**
  * Primary app routes.
