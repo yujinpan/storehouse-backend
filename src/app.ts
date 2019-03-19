@@ -1,5 +1,5 @@
 import express from "express";
-import compression from "compression";  // compresses requests
+import compression from "compression"; // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
 import logger from "./util/logger";
@@ -33,12 +33,17 @@ const app = express();
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, {useMongoClient: true}).then(
-  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
-  console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
-  // process.exit();
-});
+mongoose
+  .connect(mongoUrl, { useMongoClient: true })
+  .then(() => {
+    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
+  })
+  .catch((err) => {
+    console.log(
+      "MongoDB connection error. Please make sure MongoDB is running. " + err
+    );
+    // process.exit();
+  });
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
@@ -46,15 +51,17 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: SESSION_SECRET,
-  store: new MongoStore({
-    url: mongoUrl,
-    autoReconnect: true
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: SESSION_SECRET,
+    store: new MongoStore({
+      url: mongoUrl,
+      autoReconnect: true
+    })
   })
-}));
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -66,21 +73,33 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
-  if (!req.user &&
+  if (
+    !req.user &&
     req.path !== "/login" &&
     req.path !== "/signup" &&
     !req.path.match(/^\/auth/) &&
-    !req.path.match(/\./)) {
+    !req.path.match(/\./)
+  ) {
     req.session.returnTo = req.path;
-  } else if (req.user &&
-    req.path == "/account") {
+  } else if (req.user && req.path == "/account") {
     req.session.returnTo = req.path;
   }
   next();
 });
 
 // HTML5 History 模式
-app.use(history());
+app.use(
+  history({
+    rewrites: [
+      {
+        from: /^\/pv\/.*$/,
+        to: function(context) {
+          return context.parsedUrl.path;
+        }
+      }
+    ]
+  })
+);
 
 app.use(
   express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
