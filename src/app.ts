@@ -64,7 +64,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // HTML5 History 模式
-// app.use(history());
+app.use(history());
 
 app.use(express.static(path.join(__dirname, "public")));
 
