@@ -9,6 +9,7 @@ import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI } from "./util/secrets";
 import expressJwt from "express-jwt";
+import history from "connect-history-api-fallback";
 
 // Controllers (route handlers)
 import * as pageViewsController from "./controllers/page-views";
