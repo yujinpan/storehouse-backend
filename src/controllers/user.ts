@@ -3,7 +3,7 @@
  */
 import { Request, Response } from "express";
 import jsonwebtoken from "jsonwebtoken";
-import User, { UserModel } from "../models/user";
+import User, { UserModel } from "../models/User";
 
 // token过期时间2天
 const expiresIn = 60 * 60 * 24 * 2;
@@ -29,7 +29,7 @@ export const register = (req: Request, res: Response) => {
       });
     } else {
       const user = new User(params);
-      user.save((err) => {
+      user.save((err: any) => {
         if (err) {
           return res.json({
             state: false,
@@ -85,7 +85,7 @@ export const login = (req: Request, res: Response) => {
 // findUser
 function findUser(username: string): Promise<any> {
   return new Promise((resolve) => {
-    User.findOne({ username }, (err, user) => {
+    User.findOne({ username }, (err: any, user: UserModel) => {
       if (err) {
         resolve();
       }
