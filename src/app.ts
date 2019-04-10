@@ -46,6 +46,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
+
+// HTML5 History 模式
+app.use(history());
+
+app.use(express.static(path.join(__dirname, "public")));
+
 // token拦截
 app.use(
   expressJwt({ secret: process.env.TOKEN_SECRET }).unless({
@@ -63,11 +69,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     next();
   }
 });
-
-// HTML5 History 模式
-app.use(history());
-
-app.use(express.static(path.join(__dirname, "public")));
 
 /**
  * Primary app routes.
