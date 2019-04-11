@@ -9,7 +9,7 @@ import { httpsClient } from "../util/https-client";
 const defaultProjectConfig = {
   projectName: "angular-cow-frontend",
   type: "commits",
-  token: "9791ad022fa22dc6cb47ed293d1226de7e1578a5",
+  token: process.env.GITHUB_TOKEN,
   // 默认参数
   query: {
     page: 1, // 当前页码
