@@ -47,9 +47,7 @@ app.use(expressValidator());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
 
-// HTML5 History 模式
-app.use(history());
-
+// static assets
 app.use(express.static(path.join(__dirname, "public")));
 
 // token拦截
@@ -79,5 +77,8 @@ app.get("/api/example", exampleController.example);
 app.get("/api/about", aboutController.about);
 app.post("/api/register", userController.register);
 app.post("/api/login", userController.login);
+
+// HTML5 History 模式
+app.use(history());
 
 export default app;
