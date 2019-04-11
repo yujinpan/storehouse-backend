@@ -16,6 +16,7 @@ import * as pageViewsController from "./controllers/page-views";
 import * as exampleController from "./controllers/example";
 import * as aboutController from "./controllers/about";
 import * as userController from "./controllers/user";
+import * as logController from "./controllers/log";
 
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env" });
@@ -77,6 +78,7 @@ app.get("/api/example", exampleController.example);
 app.get("/api/about", aboutController.about);
 app.post("/api/register", userController.register);
 app.post("/api/login", userController.login);
+app.get("/api/log", logController.log);
 
 // HTML5 History 模式
 app.use(history());
