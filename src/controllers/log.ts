@@ -32,12 +32,19 @@ export const log = (req: Request, res: Response) => {
     .get(createOptions(defaultOptions, defaultProjectConfig, req.query))
     .then((result) => {
       if (result.state && result.data instanceof Array) {
+        let author, commit;
         result.data = result.data.map((item: any) => {
+          author = item.author;
+          commit = item.commit;
           return {
-            name: item.commit.committer.name,
-            date: item.commit.committer.date,
-            message: item.commit.message,
-            url: item.commit.url
+            author: {
+              name: author.login,
+              url: author.html_url,
+              avatar_url: author.avatar_url
+            },
+            date: commit.committer.date,
+            message: commit.message,
+            url: commit.url
           };
         });
       }
