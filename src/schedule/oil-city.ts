@@ -4,8 +4,8 @@
 import { scheduleJob } from "node-schedule";
 import { default as http, RequestOptions } from "http";
 
-import { OilCityData } from "../models/OilCity";
 import { setOilCity } from "../controllers/oil-city";
+import { httpsClient } from "../util/https-client";
 
 /**
  * 计划任务执行参数（每日 7:30 分）
@@ -31,9 +31,9 @@ doPlan();
  */
 function doPlan() {
   scheduleJob(scheduleParams, () => {
-    getList(options, (result: any) => {
-      if (result instanceof Array) {
-        setOilCity(result, (err: any) => {
+    httpsClient.get(options).then((result) => {
+      if (result.state && result.data instanceof Array) {
+        setOilCity(result.data, (err: any) => {
           console.log(err);
         });
       } else {
@@ -41,36 +41,4 @@ function doPlan() {
       }
     });
   });
-}
-
-/**
- * 获取今日油价列表
- * @param options 请求参数配置
- */
-function getList(options: RequestOptions, callback: any) {
-  const req = http
-    .get(options, res => {
-      let rawData = "";
-      res.on("data", chunk => {
-        rawData += chunk;
-      });
-      res.on("end", () => {
-        let result;
-        try {
-          result = JSON.parse(rawData);
-        } catch (e) {
-          console.log(e);
-          return callback(rawData);
-        }
-        if (result.resultcode === "200") {
-          callback(result.result);
-        } else {
-          callback(result.reason);
-        }
-      });
-    })
-    .on("error", e => {
-      console.error(`Got error: ${e.message}`);
-    });
-  req.end();
 }

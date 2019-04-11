@@ -1,9 +1,4 @@
-import { Request, Response, NextFunction } from "express";
-import {
-  default as OilCity,
-  OilCityData,
-  OilCityModel
-} from "../models/OilCity";
+import { default as OilCity, OilCityData } from "../models/OilCity";
 
 /**
  * POST /oil_city/set
