@@ -3,6 +3,7 @@
  */
 import { Request, Response } from "express";
 import jsonwebtoken from "jsonwebtoken";
+
 import User, { UserModel } from "../models/User";
 
 // token过期时间2天
@@ -28,6 +29,7 @@ export const register = (req: Request, res: Response) => {
         message: "User already exists."
       });
     } else {
+      params.lastTime = new Date().toLocaleTimeString();
       const user = new User(params);
       user.save((err: any) => {
         if (err) {
@@ -62,6 +64,14 @@ export const login = (req: Request, res: Response) => {
   findUser(params.username).then((user) => {
     if (user) {
       if (params.password === user.password) {
+        // 更新最后登陆时间
+        User.updateOne(
+          { _id: user._id },
+          { $set: { lastTime: new Date().toLocaleString() } },
+          (err, res) => {
+            console.log(err, res);
+          }
+        );
         // 登陆成功
         return res.json({
           state: true,
