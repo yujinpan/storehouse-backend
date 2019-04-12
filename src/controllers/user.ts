@@ -29,7 +29,7 @@ export const register = (req: Request, res: Response) => {
         message: "User already exists."
       });
     } else {
-      params.lastTime = new Date().toLocaleTimeString();
+      params.lastTime = new Date().toLocaleString();
       const user = new User(params);
       user.save((err: any) => {
         if (err) {
