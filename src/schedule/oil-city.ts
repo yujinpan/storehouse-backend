@@ -32,12 +32,17 @@ doPlan();
 function doPlan() {
   scheduleJob(scheduleParams, () => {
     httpsClient.get(options).then((result) => {
-      if (result.state && result.data instanceof Array) {
-        setOilCity(result.data, (err: any) => {
-          console.log(err);
+      if (
+        result.state &&
+        result.data &&
+        result.data.result &&
+        result.data.result.length
+      ) {
+        setOilCity(result.data.result, (err: any) => {
+          console.log("存储油价列表失败", err);
         });
       } else {
-        console.log(result);
+        console.log("获取油价列表失败", result);
       }
     });
   });
